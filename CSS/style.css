@@ -1,0 +1,176 @@
+/* Reinicio básico */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+    background: #efe5d0;
+}
+
+/*
+La portada tiene un ancho máximo para no agrandarse
+excesivamente en pantallas de computadora.
+*/
+.contenedor-portada {
+    position: relative;
+    width: 100%;
+    max-width: 720px;
+    margin: 0 auto;
+}
+
+/* La imagen define el tamaño del contenedor */
+.portada {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+/*
+Esta capa ocupa exactamente el mismo espacio que la imagen.
+Dentro colocamos las cuatro zonas clicables.
+*/
+.enlaces-portada {
+    position: absolute;
+    inset: 0;
+}
+
+/* Configuración compartida por todas las zonas */
+.zona {
+    position: absolute;
+    display: block;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+}
+
+/*
+El texto existe para accesibilidad, pero no se muestra.
+Así los lectores de pantalla entienden cada enlace.
+*/
+.zona span {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+}
+
+/*
+Coordenadas en porcentajes.
+
+Se usan porcentajes, no píxeles, para que las zonas
+acompañen a la imagen cuando cambia su tamaño.
+*/
+.zona-burgers {
+    left: 7%;
+    top: 43%;
+    width: 80%;
+    height: 11%;
+}
+
+.zona-cervezas {
+    left: 7%;
+    top: 55%;
+    width: 86%;
+    height: 11%;
+}
+
+.zona-papas {
+    left: 7%;
+    top: 67%;
+    width: 57%;
+    height: 11%;
+}
+
+.zona-panchos {
+    left: 7%;
+    top: 79%;
+    width: 87%;
+    height: 11%;
+}
+
+/*
+Mientras estamos construyendo el sitio mostramos las zonas
+con un borde. Luego lo quitaremos para volverlas invisibles.
+*/
+.zona {
+    border: 0;
+    background: transparent;
+}
+
+/* Respuesta visual al pasar el mouse o tocar con teclado */
+.zona:hover,
+.zona:focus-visible {
+    background: rgba(199, 51, 51, 0.10);
+    outline: 2px solid rgba(199, 51, 51, 0.55);
+    outline-offset: -2px;
+}
+/* -------------------------------- */
+/* PÁGINAS DE LAS CARTAS            */
+/* -------------------------------- */
+
+.contenedor-carta {
+    position: relative;
+
+    width: 100%;
+    max-width: 900px;
+
+    margin: 0 auto;
+}
+
+.imagen-carta {
+    display: block;
+
+    width: 100%;
+    height: auto;
+}
+
+/*
+Botones MENÚ superpuestos sobre la imagen.
+Las posiciones se expresan en porcentajes para que
+se adapten cuando cambia el tamaño de la carta.
+*/
+.menu-sobre-carta {
+    position: absolute;
+
+    left: 50%;
+    transform: translateX(-50%);
+
+    display: inline-block;
+    padding: 8px 18px;
+
+    color: #c73333;
+
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: 2px;
+
+    text-decoration: none;
+
+    background: rgba(245, 233, 210, 0.88);
+
+    transition:
+        background 0.2s ease,
+        letter-spacing 0.2s ease;
+}
+
+/* Ubicación del botón superior */
+.menu-superior {
+    top: 2.2%;
+}
+
+/* Ubicación del botón inferior */
+.menu-inferior {
+    bottom: 0%;
+}
+
+.menu-sobre-carta:hover,
+.menu-sobre-carta:focus-visible {
+    background: rgba(245, 233, 210, 1);
+    letter-spacing: 4px;
+    outline: none;
+}
