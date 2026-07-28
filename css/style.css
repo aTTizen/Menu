@@ -1,126 +1,116 @@
-/* Reinicio básico */
+/* ================================================= */
+/* LA CABRA MAREADA - ESTILOS GENERALES              */
+/* ================================================= */
+
+:root {
+    /* Medidas actuales de todas las imágenes */
+    --ancho-carta: 1050px;
+    --proporcion-carta: 1050 / 1485;
+
+    /* Paleta entregada por la diseñadora */
+    --color-fondo: #fff8eb;
+    --color-fondo-secundario: #e8dfc8;
+    --color-texto: #302314;
+    --color-texto-secundario: #503f28;
+    --color-rojo: #b70213;
+
+    /* Fondo del botón MENÚ */
+    --fondo-menu: rgba(255, 248, 235, 0.86);
+    --fondo-menu-activo: rgba(255, 248, 235, 0.96);
+}
+
+
+/* ================================================= */
+/* REINICIO GENERAL                                  */
+/* ================================================= */
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
+html {
+    width: 100%;
+    min-height: 100%;
+
+    background-color: var(--color-fondo);
+
+    scroll-behavior: smooth;
+}
+
 body {
+    width: 100%;
     min-height: 100vh;
-    background: #efe5d0;
+    margin: 0;
+
+    overflow-x: hidden;
+
+    color: var(--color-texto);
+    background-color: var(--color-fondo);
+
+    /*
+    Las imágenes se leen de arriba hacia abajo:
+
+    1. Textura envejecida.
+    2. Textura suave.
+    3. Color de fondo.
+    */
+    background-image:
+        url("../img/textura envejecida.png"),
+        url("../img/textura suave.png");
+
+    background-position:
+        center top,
+        center top;
+
+    /*
+    Se repiten verticalmente para que el fondo continúe
+    aunque la pantalla sea más alta que la carta.
+    */
+    background-repeat:
+        repeat-y,
+        repeat-y;
+
+    /*
+    Las texturas cubren el ancho disponible y mantienen
+    su proporción original.
+    */
+    background-size:
+        cover,
+        cover;
 }
 
-/*
-La portada tiene un ancho máximo para no agrandarse
-excesivamente en pantallas de computadora.
-*/
-.contenedor-portada {
-    position: relative;
-    width: 100%;
-    max-width: 720px;
-    margin: 0 auto;
+img {
+    max-width: 100%;
 }
 
-/* La imagen define el tamaño del contenedor */
-.portada {
-    display: block;
-    width: 100%;
-    height: auto;
+a {
+    color: inherit;
 }
 
-/*
-Esta capa ocupa exactamente el mismo espacio que la imagen.
-Dentro colocamos las cuatro zonas clicables.
-*/
-.enlaces-portada {
-    position: absolute;
-    inset: 0;
-}
 
-/* Configuración compartida por todas las zonas */
-.zona {
-    position: absolute;
-    display: block;
-    cursor: pointer;
-    -webkit-tap-highlight-color: transparent;
-}
+/* ================================================= */
+/* CONTENEDORES DE PORTADA Y CARTAS                  */
+/* ================================================= */
 
-/*
-El texto existe para accesibilidad, pero no se muestra.
-Así los lectores de pantalla entienden cada enlace.
-*/
-.zona span {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    overflow: hidden;
-    clip-path: inset(50%);
-    white-space: nowrap;
-}
-
-/*
-Coordenadas en porcentajes.
-
-Se usan porcentajes, no píxeles, para que las zonas
-acompañen a la imagen cuando cambia su tamaño.
-*/
-.zona-burgers {
-    left: 7%;
-    top: 43%;
-    width: 80%;
-    height: 11%;
-}
-
-.zona-cervezas {
-    left: 7%;
-    top: 55%;
-    width: 86%;
-    height: 11%;
-}
-
-.zona-papas {
-    left: 7%;
-    top: 67%;
-    width: 57%;
-    height: 11%;
-}
-
-.zona-panchos {
-    left: 7%;
-    top: 79%;
-    width: 87%;
-    height: 11%;
-}
-
-/*
-Mientras estamos construyendo el sitio mostramos las zonas
-con un borde. Luego lo quitaremos para volverlas invisibles.
-*/
-.zona {
-    border: 0;
-    background: transparent;
-}
-
-/* Respuesta visual al pasar el mouse o tocar con teclado */
-.zona:hover,
-.zona:focus-visible {
-    background: rgba(199, 51, 51, 0.10);
-    outline: 2px solid rgba(199, 51, 51, 0.55);
-    outline-offset: -2px;
-}
-/* -------------------------------- */
-/* PÁGINAS DE LAS CARTAS            */
-/* -------------------------------- */
-
+.contenedor-portada,
 .contenedor-carta {
     position: relative;
 
     width: 100%;
-    max-width: 900px;
+    max-width: var(--ancho-carta);
 
     margin: 0 auto;
+
+    /*
+    Reserva el espacio correspondiente a una imagen
+    de 1050 x 1485 antes de que termine de cargar.
+    */
+    aspect-ratio: var(--proporcion-carta);
 }
 
+.portada,
 .imagen-carta {
     display: block;
 
@@ -128,49 +118,252 @@ con un borde. Luego lo quitaremos para volverlas invisibles.
     height: auto;
 }
 
+
+/* ================================================= */
+/* ZONAS CLICABLES DE LA PORTADA                     */
+/* ================================================= */
+
 /*
-Botones MENÚ superpuestos sobre la imagen.
-Las posiciones se expresan en porcentajes para que
-se adapten cuando cambia el tamaño de la carta.
+Esta capa ocupa exactamente la misma superficie que
+la imagen de la portada.
 */
-.menu-sobre-carta {
+.enlaces-portada {
+    position: absolute;
+    inset: 0;
+
+    z-index: 2;
+}
+
+/* Configuración compartida por todas las zonas */
+.zona {
     position: absolute;
 
+    display: block;
+
+    border: 0;
+    background: transparent;
+
+    cursor: pointer;
+    touch-action: manipulation;
+
+    -webkit-tap-highlight-color: transparent;
+}
+
+/*
+El texto queda disponible para lectores de pantalla,
+pero no aparece visualmente.
+*/
+.zona span {
+    position: absolute;
+
+    width: 1px;
+    height: 1px;
+
+    padding: 0;
+    margin: -1px;
+
+    overflow: hidden;
+
+    clip: rect(0, 0, 0, 0);
+    clip-path: inset(50%);
+
+    white-space: nowrap;
+
+    border: 0;
+}
+
+
+/* ================================================= */
+/* POSICIONES DE LAS ZONAS CLICABLES                 */
+/* ================================================= */
+
+/*
+Las medidas están expresadas en porcentajes para que
+se adapten automáticamente al tamaño de la portada.
+*/
+
+.zona-burgers {
+    left: 10%;
+    top: 39%;
+
+    width: 70%;
+    height: 10%;
+}
+
+.zona-cervezas {
+    left: 10%;
+    top: 49.5%;
+
+    width: 75%;
+    height: 10%;
+}
+
+.zona-papas {
+    left: 10%;
+    top: 60%;
+
+    width: 51%;
+    height: 10%;
+}
+
+.zona-pizzas {
+    left: 10%;
+    top: 70.5%;
+
+    width: 51%;
+    height: 10%;
+}
+
+.zona-panchos {
+    left: 10%;
+    top: 81%;
+
+    width: 76%;
+    height: 10%;
+}
+
+
+/* ================================================= */
+/* RESPUESTA VISUAL DE LAS ZONAS                     */
+/* ================================================= */
+
+/*
+El efecto hover solo se aplica en equipos que realmente
+tienen mouse, para que no quede marcado al tocar en celular.
+*/
+@media (hover: hover) and (pointer: fine) {
+
+    .zona:hover {
+        background: rgba(183, 2, 19, 0.08);
+
+        outline: 2px solid rgba(183, 2, 19, 0.45);
+        outline-offset: -2px;
+    }
+}
+
+/* Respuesta para navegación mediante teclado */
+.zona:focus-visible {
+    background: rgba(183, 2, 19, 0.08);
+
+    outline: 2px solid rgba(183, 2, 19, 0.65);
+    outline-offset: -2px;
+}
+
+
+/* ================================================= */
+/* BOTONES MENÚ SOBRE LAS CARTAS                     */
+/* ================================================= */
+
+.menu-sobre-carta {
+    position: absolute;
     left: 50%;
+
+    z-index: 3;
+
     transform: translateX(-50%);
 
-    display: inline-block;
-    padding: 8px 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
-    color: #c73333;
+    min-height: 42px;
+
+    padding:
+        clamp(6px, 1vw, 10px)
+        clamp(14px, 2vw, 22px);
+
+    color: var(--color-rojo);
 
     font-family: Arial, Helvetica, sans-serif;
-    font-size: 20px;
+    font-size: clamp(14px, 2vw, 20px);
     font-weight: 700;
-    letter-spacing: 2px;
 
+    letter-spacing: 2px;
+    line-height: 1;
+
+    text-align: center;
     text-decoration: none;
 
-    background: rgba(245, 233, 210, 0.88);
+    background: var(--fondo-menu);
 
     transition:
-        background 0.2s ease,
+        background-color 0.2s ease,
         letter-spacing 0.2s ease;
 }
 
-/* Ubicación del botón superior */
+/* Posición del MENÚ superior */
 .menu-superior {
     top: 2.2%;
 }
 
-/* Ubicación del botón inferior */
+/* Posición del MENÚ inferior */
 .menu-inferior {
-    bottom: 0%;
+    bottom: 0;
 }
 
-.menu-sobre-carta:hover,
+
+/* Respuesta con mouse */
+@media (hover: hover) and (pointer: fine) {
+
+    .menu-sobre-carta:hover {
+        background: var(--fondo-menu-activo);
+        letter-spacing: 4px;
+    }
+}
+
+/* Respuesta con teclado */
 .menu-sobre-carta:focus-visible {
-    background: rgba(245, 233, 210, 1);
+    background: var(--fondo-menu-activo);
+
     letter-spacing: 4px;
-    outline: none;
+
+    outline: 2px solid var(--color-rojo);
+    outline-offset: -2px;
+}
+
+
+/* ================================================= */
+/* ANCLA INTERNA PARA LA SECCIÓN PANCHOS             */
+/* ================================================= */
+
+/*
+Esta ancla permite que el enlace pizzas.html#panchos
+abra la misma carta directamente en su parte inferior.
+
+La posición puede ajustarse después de probarla
+desde el teléfono.
+*/
+.ancla-panchos {
+    position: absolute;
+
+    top: 62%;
+    left: 0;
+
+    width: 1px;
+    height: 1px;
+
+    pointer-events: none;
+
+    scroll-margin-top: 12px;
+}
+
+
+/* ================================================= */
+/* PRIMERA ADAPTACIÓN PARA CELULARES                 */
+/* ================================================= */
+
+@media (max-width: 600px) {
+
+    .menu-sobre-carta {
+        min-height: 40px;
+
+        padding: 6px 14px;
+
+        font-size: 14px;
+        letter-spacing: 1.5px;
+    }
+
+    .menu-sobre-carta:focus-visible {
+        letter-spacing: 2px;
+    }
 }
