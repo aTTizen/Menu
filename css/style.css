@@ -143,7 +143,7 @@ a {
 }
 
 /* Texto accesible, oculto únicamente de forma visual. */
-.zona span {
+.zona .texto-accesible {
     position: absolute;
 
     width: 1px;
@@ -157,6 +157,40 @@ a {
 
     white-space: nowrap;
     border: 0;
+}
+
+/*
+La flecha funciona como señal visual de navegación sin
+modificar la imagen original de la diseñadora.
+*/
+.indicador {
+    position: absolute;
+    top: 50%;
+    right: clamp(-58px, -5.5vw, -40px);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: clamp(32px, 4.6vw, 48px);
+    aspect-ratio: 1;
+
+    color: var(--color-papel);
+    border: 2px solid rgba(255, 248, 235, 0.92);
+    border-radius: 50%;
+
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: clamp(18px, 2.5vw, 26px);
+    font-weight: 700;
+    line-height: 1;
+
+    background: var(--color-rojo);
+    box-shadow: 0 3px 10px rgba(48, 35, 20, 0.2);
+
+    transform: translateY(-50%);
+    transition:
+        background-color 0.2s ease,
+        transform 0.2s ease;
 }
 
 .zona-burgers {
@@ -199,6 +233,11 @@ a {
         background: rgba(183, 2, 19, 0.08);
         outline: 2px solid rgba(183, 2, 19, 0.45);
         outline-offset: -2px;
+    }
+
+    .zona:hover .indicador {
+        background: var(--color-tinta);
+        transform: translate(3px, -50%);
     }
 }
 
@@ -323,21 +362,41 @@ pequeñas, donde la letra de la carta necesita ampliación.
             100vw auto;
     }
 
+    /*
+    En las páginas de cartas, la imagen queda centrada dentro
+    de un marco limpio del color solicitado.
+    Los márgenes automáticos conservan el inicio visible si
+    una pantalla horizontal fuera más baja que la carta.
+    */
+    body.pagina-carta {
+        display: flex;
+        flex-direction: column;
+
+        padding: clamp(10px, 3vw, 16px);
+
+        background-color: var(--color-papel);
+        background-image: none;
+    }
+
     .contenedor-portada,
     .contenedor-carta {
         max-width: none;
     }
 
+    .pagina-carta .contenedor-carta {
+        flex: 0 0 auto;
+        margin-block: auto;
+    }
+
     /*
-    MENÚ permanece accesible cuando el enlace a Panchos
-    desplaza la carta hacia su parte inferior.
+    En la vista normal, MENÚ vuelve a quedar contenido dentro
+    de la imagen en lugar de flotar sobre el borde superior.
     */
     .menu-sobre-carta {
-        position: fixed;
-        top: max(10px, env(safe-area-inset-top));
+        position: absolute;
+        top: 10px;
         right: 10px;
         left: auto;
-        z-index: 10;
 
         min-height: 44px;
         padding: 8px 14px;
@@ -369,11 +428,23 @@ pequeñas, donde la letra de la carta necesita ampliación.
     .pagina-pizzas:has(#panchos:target) {
         padding-bottom: 70svh;
     }
+
+    /*
+    Cuando se entra directamente a Panchos hay desplazamiento.
+    En ese caso puntual MENÚ permanece visible sobre la carta.
+    */
+    .pagina-pizzas:has(#panchos:target) .menu-sobre-carta {
+        position: fixed;
+        top: max(10px, env(safe-area-inset-top));
+        right: 10px;
+        z-index: 10;
+    }
 }
 
 @media (prefers-reduced-motion: reduce) {
     .menu-sobre-carta,
-    .ampliar-carta {
+    .ampliar-carta,
+    .indicador {
         transition: none;
     }
 }
