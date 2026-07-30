@@ -74,9 +74,14 @@ body {
         repeat-y,
         repeat-y;
 
+    /*
+    La textura se amplía hasta cubrir todo el ancho de la
+    ventana. Así no quedan franjas de color sólido a los
+    costados de la carta en monitores grandes.
+    */
     background-size:
-        var(--ancho-carta) auto,
-        var(--ancho-carta) auto;
+        cover,
+        cover;
 }
 
 img {
@@ -292,8 +297,11 @@ modificar la imagen original de la diseñadora.
 }
 
 .menu-sobre-carta {
+    position: fixed;
     top: clamp(10px, 1.8vw, 20px);
     left: 50%;
+    z-index: 10;
+
     transform: translateX(-50%);
 }
 
@@ -368,7 +376,8 @@ pequeñas, donde la letra de la carta necesita ampliación.
     Los márgenes automáticos conservan el inicio visible si
     una pantalla horizontal fuera más baja que la carta.
     */
-    body.pagina-carta {
+    body.pagina-carta,
+    body.pagina-portada {
         display: flex;
         flex-direction: column;
 
@@ -383,7 +392,8 @@ pequeñas, donde la letra de la carta necesita ampliación.
         max-width: none;
     }
 
-    .pagina-carta .contenedor-carta {
+    .pagina-carta .contenedor-carta,
+    .pagina-portada .contenedor-portada {
         flex: 0 0 auto;
         margin-block: auto;
     }
