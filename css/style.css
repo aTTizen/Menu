@@ -164,40 +164,6 @@ a {
     border: 0;
 }
 
-/*
-La flecha funciona como señal visual de navegación sin
-modificar la imagen original de la diseñadora.
-*/
-.indicador {
-    position: absolute;
-    top: 50%;
-    right: clamp(-58px, -5.5vw, -40px);
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    width: clamp(32px, 4.6vw, 48px);
-    aspect-ratio: 1;
-
-    color: var(--color-papel);
-    border: 2px solid rgba(255, 248, 235, 0.92);
-    border-radius: 50%;
-
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: clamp(18px, 2.5vw, 26px);
-    font-weight: 700;
-    line-height: 1;
-
-    background: var(--color-rojo);
-    box-shadow: 0 3px 10px rgba(48, 35, 20, 0.2);
-
-    transform: translateY(-50%);
-    transition:
-        background-color 0.2s ease,
-        transform 0.2s ease;
-}
-
 .zona-burgers {
     left: 10%;
     top: 39%;
@@ -240,10 +206,6 @@ modificar la imagen original de la diseñadora.
         outline-offset: -2px;
     }
 
-    .zona:hover .indicador {
-        background: var(--color-tinta);
-        transform: translate(3px, -50%);
-    }
 }
 
 .zona:focus-visible {
@@ -453,8 +415,7 @@ pequeñas, donde la letra de la carta necesita ampliación.
 
 @media (prefers-reduced-motion: reduce) {
     .menu-sobre-carta,
-    .ampliar-carta,
-    .indicador {
+    .ampliar-carta {
         transition: none;
     }
 }
