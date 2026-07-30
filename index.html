@@ -1,27 +1,32 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 
 <head>
     <meta charset="UTF-8">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta
+        name="description"
+        content="Carta digital de La Cabra Mareada: hamburguesas, cervezas, papas, pizzas y panchos.">
+    <meta name="theme-color" content="#fff8eb">
 
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
+    <title>La Cabra Mareada | Menú</title>
 
-    <title>La Cabra Mareada</title>
-
-    <link rel="stylesheet"
-          href="css/style.css">
-
+    <link rel="stylesheet" href="css/style.css">
 </head>
 
-<body>
+<body class="pagina-portada">
 
     <main class="contenedor-portada">
 
         <img
             src="img/portada.jpeg"
             alt="Menú principal de La Cabra Mareada"
-            class="portada">
+            class="portada"
+            width="1050"
+            height="1485"
+            fetchpriority="high">
 
         <nav class="enlaces-portada" aria-label="Categorías de la carta">
 
@@ -45,13 +50,19 @@
                 aria-label="Ver carta de papas">
                 <span>Papas</span>
             </a>
-            
-            <a class="zona zona-pizzas" href="pizzas.html">
-            <span>Pizzas</span>
+
+            <a
+                class="zona zona-pizzas"
+                href="pizzas.html"
+                aria-label="Ver carta de pizzas">
+                <span>Pizzas</span>
             </a>
 
-            <a class="zona zona-panchos" href="pizzas.html#panchos">
-             <span>Panchos</span>
+            <a
+                class="zona zona-panchos"
+                href="pizzas.html#panchos"
+                aria-label="Ver la sección de panchos">
+                <span>Panchos</span>
             </a>
 
         </nav>

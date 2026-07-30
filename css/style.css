@@ -1,27 +1,23 @@
 /* ================================================= */
-/* LA CABRA MAREADA - ESTILOS GENERALES              */
+/* LA CABRA MAREADA                                  */
 /* ================================================= */
 
 :root {
-    /* Medidas actuales de todas las imágenes */
     --ancho-carta: 1050px;
     --proporcion-carta: 1050 / 1485;
 
-    /* Paleta entregada por la diseñadora */
-    --color-fondo: #fff8eb;
-    --color-fondo-secundario: #e8dfc8;
-    --color-texto: #302314;
-    --color-texto-secundario: #503f28;
+    --color-papel: #fff8eb;
+    --color-papel-secundario: #e8dfc8;
+    --color-tinta: #302314;
     --color-rojo: #b70213;
 
-    /* Fondo del botón MENÚ */
-    --fondo-menu: rgba(255, 248, 235, 0.86);
-    --fondo-menu-activo: rgba(255, 248, 235, 0.96);
+    --fondo-control: rgba(255, 248, 235, 0.82);
+    --fondo-control-activo: rgba(255, 248, 235, 0.97);
 }
 
 
 /* ================================================= */
-/* REINICIO GENERAL                                  */
+/* CONFIGURACIÓN GENERAL                             */
 /* ================================================= */
 
 * {
@@ -34,51 +30,53 @@ html {
     width: 100%;
     min-height: 100%;
 
-    background-color: var(--color-fondo);
+    color: var(--color-tinta);
+    background-color: var(--color-papel);
 
-    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
 }
 
 body {
     width: 100%;
     min-height: 100vh;
-    margin: 0;
+    min-height: 100svh;
 
     overflow-x: hidden;
 
-    color: var(--color-texto);
-    background-color: var(--color-fondo);
+    color: var(--color-tinta);
+    background-color: var(--color-papel);
 
-    /*
-    Las imágenes se leen de arriba hacia abajo:
-
-    1. Textura envejecida.
-    2. Textura suave.
-    3. Color de fondo.
-    */
+    /* Respaldo para navegadores que no entienden image-set(). */
     background-image:
         url("../img/textura envejecida.png"),
         url("../img/textura suave.png");
+
+    /*
+    Las versiones WebP son más livianas. Los PNG originales
+    permanecen como respaldo para navegadores antiguos.
+    */
+    background-image:
+        image-set(
+            url("../img/textura-envejecida.webp") type("image/webp"),
+            url("../img/textura envejecida.png") type("image/png")
+        ),
+        image-set(
+            url("../img/textura-suave.webp") type("image/webp"),
+            url("../img/textura suave.png") type("image/png")
+        );
 
     background-position:
         center top,
         center top;
 
-    /*
-    Se repiten verticalmente para que el fondo continúe
-    aunque la pantalla sea más alta que la carta.
-    */
     background-repeat:
         repeat-y,
         repeat-y;
 
-    /*
-    Las texturas cubren el ancho disponible y mantienen
-    su proporción original.
-    */
     background-size:
-        cover,
-        cover;
+        var(--ancho-carta) auto,
+        var(--ancho-carta) auto;
 }
 
 img {
@@ -91,7 +89,7 @@ a {
 
 
 /* ================================================= */
-/* CONTENEDORES DE PORTADA Y CARTAS                  */
+/* PORTADA Y CARTAS                                  */
 /* ================================================= */
 
 .contenedor-portada,
@@ -100,13 +98,8 @@ a {
 
     width: 100%;
     max-width: var(--ancho-carta);
-
     margin: 0 auto;
 
-    /*
-    Reserva el espacio correspondiente a una imagen
-    de 1050 x 1485 antes de que termine de cargar.
-    */
     aspect-ratio: var(--proporcion-carta);
 }
 
@@ -116,6 +109,14 @@ a {
 
     width: 100%;
     height: auto;
+
+    -webkit-user-select: none;
+    user-select: none;
+    -webkit-user-drag: none;
+}
+
+.imagen-carta {
+    touch-action: pan-x pan-y pinch-zoom;
 }
 
 
@@ -123,21 +124,14 @@ a {
 /* ZONAS CLICABLES DE LA PORTADA                     */
 /* ================================================= */
 
-/*
-Esta capa ocupa exactamente la misma superficie que
-la imagen de la portada.
-*/
 .enlaces-portada {
     position: absolute;
     inset: 0;
-
     z-index: 2;
 }
 
-/* Configuración compartida por todas las zonas */
 .zona {
     position: absolute;
-
     display: block;
 
     border: 0;
@@ -145,47 +139,29 @@ la imagen de la portada.
 
     cursor: pointer;
     touch-action: manipulation;
-
     -webkit-tap-highlight-color: transparent;
 }
 
-/*
-El texto queda disponible para lectores de pantalla,
-pero no aparece visualmente.
-*/
+/* Texto accesible, oculto únicamente de forma visual. */
 .zona span {
     position: absolute;
 
     width: 1px;
     height: 1px;
-
     padding: 0;
     margin: -1px;
 
     overflow: hidden;
-
     clip: rect(0, 0, 0, 0);
     clip-path: inset(50%);
 
     white-space: nowrap;
-
     border: 0;
 }
-
-
-/* ================================================= */
-/* POSICIONES DE LAS ZONAS CLICABLES                 */
-/* ================================================= */
-
-/*
-Las medidas están expresadas en porcentajes para que
-se adapten automáticamente al tamaño de la portada.
-*/
 
 .zona-burgers {
     left: 10%;
     top: 39%;
-
     width: 70%;
     height: 10%;
 }
@@ -193,7 +169,6 @@ se adapten automáticamente al tamaño de la portada.
 .zona-cervezas {
     left: 10%;
     top: 49.5%;
-
     width: 75%;
     height: 10%;
 }
@@ -201,7 +176,6 @@ se adapten automáticamente al tamaño de la portada.
 .zona-papas {
     left: 10%;
     top: 60%;
-
     width: 51%;
     height: 10%;
 }
@@ -209,7 +183,6 @@ se adapten automáticamente al tamaño de la portada.
 .zona-pizzas {
     left: 10%;
     top: 70.5%;
-
     width: 51%;
     height: 10%;
 }
@@ -217,125 +190,117 @@ se adapten automáticamente al tamaño de la portada.
 .zona-panchos {
     left: 10%;
     top: 81%;
-
     width: 76%;
     height: 10%;
 }
 
-
-/* ================================================= */
-/* RESPUESTA VISUAL DE LAS ZONAS                     */
-/* ================================================= */
-
-/*
-El efecto hover solo se aplica en equipos que realmente
-tienen mouse, para que no quede marcado al tocar en celular.
-*/
 @media (hover: hover) and (pointer: fine) {
-
     .zona:hover {
         background: rgba(183, 2, 19, 0.08);
-
         outline: 2px solid rgba(183, 2, 19, 0.45);
         outline-offset: -2px;
     }
 }
 
-/* Respuesta para navegación mediante teclado */
 .zona:focus-visible {
     background: rgba(183, 2, 19, 0.08);
-
-    outline: 2px solid rgba(183, 2, 19, 0.65);
-    outline-offset: -2px;
+    outline: 3px solid rgba(183, 2, 19, 0.75);
+    outline-offset: -3px;
 }
 
 
 /* ================================================= */
-/* BOTONES MENÚ SOBRE LAS CARTAS                     */
+/* CONTROLES SUPERPUESTOS SOBRE LAS CARTAS           */
 /* ================================================= */
 
-.menu-sobre-carta {
+.menu-sobre-carta,
+.ampliar-carta {
     position: absolute;
-    left: 50%;
-
     z-index: 3;
 
-    transform: translateX(-50%);
-
-    display: flex;
+    display: inline-flex;
     align-items: center;
     justify-content: center;
+    gap: 0.45em;
 
-    min-height: 42px;
-
-    padding:
-        clamp(6px, 1vw, 10px)
-        clamp(14px, 2vw, 22px);
+    min-height: 44px;
+    padding: 8px 16px;
 
     color: var(--color-rojo);
+    border: 1px solid rgba(48, 35, 20, 0.3);
+    border-radius: 999px;
 
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: clamp(14px, 2vw, 20px);
+    font-family: "Arial Narrow", Arial, Helvetica, sans-serif;
+    font-size: clamp(13px, 1.7vw, 18px);
     font-weight: 700;
-
-    letter-spacing: 2px;
     line-height: 1;
+    letter-spacing: 0.12em;
 
     text-align: center;
     text-decoration: none;
 
-    background: var(--fondo-menu);
+    background: var(--fondo-control);
+    box-shadow: 0 3px 10px rgba(48, 35, 20, 0.12);
+    backdrop-filter: blur(2px);
 
     transition:
+        color 0.2s ease,
         background-color 0.2s ease,
-        letter-spacing 0.2s ease;
+        border-color 0.2s ease,
+        transform 0.2s ease;
+
+    -webkit-tap-highlight-color: transparent;
 }
 
-/* Posición del MENÚ superior */
-.menu-superior {
-    top: 2.2%;
+.menu-sobre-carta {
+    top: clamp(10px, 1.8vw, 20px);
+    left: 50%;
+    transform: translateX(-50%);
 }
 
-/* Posición del MENÚ inferior */
-.menu-inferior {
-    bottom: 0;
+.menu-sobre-carta::before {
+    content: "←";
+    font-size: 1.15em;
+    line-height: 0;
 }
 
+/*
+El acceso a la imagen original aparece solo en pantallas
+pequeñas, donde la letra de la carta necesita ampliación.
+*/
+.ampliar-carta {
+    display: none;
+}
 
-/* Respuesta con mouse */
 @media (hover: hover) and (pointer: fine) {
+    .menu-sobre-carta:hover,
+    .ampliar-carta:hover {
+        color: var(--color-papel);
+        border-color: var(--color-rojo);
+        background: var(--color-rojo);
+    }
 
     .menu-sobre-carta:hover {
-        background: var(--fondo-menu-activo);
-        letter-spacing: 4px;
+        transform: translateX(-50%) translateY(-1px);
     }
 }
 
-/* Respuesta con teclado */
-.menu-sobre-carta:focus-visible {
-    background: var(--fondo-menu-activo);
-
-    letter-spacing: 4px;
-
-    outline: 2px solid var(--color-rojo);
-    outline-offset: -2px;
+.menu-sobre-carta:focus-visible,
+.ampliar-carta:focus-visible {
+    color: var(--color-papel);
+    border-color: var(--color-rojo);
+    background: var(--color-rojo);
+    outline: 3px solid var(--color-papel);
+    outline-offset: 2px;
 }
 
 
 /* ================================================= */
-/* ANCLA INTERNA PARA LA SECCIÓN PANCHOS             */
+/* NAVEGACIÓN DIRECTA A PANCHOS                      */
 /* ================================================= */
 
-/*
-Esta ancla permite que el enlace pizzas.html#panchos
-abra la misma carta directamente en su parte inferior.
-
-La posición puede ajustarse después de probarla
-desde el teléfono.
-*/
 .ancla-panchos {
     position: absolute;
-
     top: 62%;
     left: 0;
 
@@ -343,27 +308,72 @@ desde el teléfono.
     height: 1px;
 
     pointer-events: none;
-
-    scroll-margin-top: 12px;
+    scroll-margin-top: 16px;
 }
 
 
 /* ================================================= */
-/* PRIMERA ADAPTACIÓN PARA CELULARES                 */
+/* VERSIÓN MÓVIL                                     */
 /* ================================================= */
 
-@media (max-width: 600px) {
-
-    .menu-sobre-carta {
-        min-height: 40px;
-
-        padding: 6px 14px;
-
-        font-size: 14px;
-        letter-spacing: 1.5px;
+@media (max-width: 700px) {
+    body {
+        background-size:
+            100vw auto,
+            100vw auto;
     }
 
-    .menu-sobre-carta:focus-visible {
-        letter-spacing: 2px;
+    .contenedor-portada,
+    .contenedor-carta {
+        max-width: none;
+    }
+
+    /*
+    MENÚ permanece accesible cuando el enlace a Panchos
+    desplaza la carta hacia su parte inferior.
+    */
+    .menu-sobre-carta {
+        position: fixed;
+        top: max(10px, env(safe-area-inset-top));
+        right: 10px;
+        left: auto;
+        z-index: 10;
+
+        min-height: 44px;
+        padding: 8px 14px;
+
+        font-size: 14px;
+
+        transform: none;
+    }
+
+    .ampliar-carta {
+        right: 10px;
+        bottom: max(10px, env(safe-area-inset-bottom));
+
+        display: inline-flex;
+
+        min-height: 44px;
+        padding: 8px 12px;
+
+        font-size: 12px;
+        letter-spacing: 0.08em;
+    }
+
+    /*
+    Al entrar desde PANCHOS se agrega espacio temporal al
+    final. Así el navegador puede llevar esa sección a una
+    posición cómoda aunque la carta completa sea más baja
+    que la pantalla del teléfono.
+    */
+    .pagina-pizzas:has(#panchos:target) {
+        padding-bottom: 70svh;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .menu-sobre-carta,
+    .ampliar-carta {
+        transition: none;
     }
 }
