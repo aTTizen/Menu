@@ -243,13 +243,12 @@ a {
 }
 
 /*
-En computadora hay suficiente espacio para separar la
-ubicación del aviso y darle una proporción similar a la
-que tiene respecto de la portada en celulares.
+En computadora la ubicación permanente ocupa la primera
+posición y mantiene una proporción similar a la del celular.
 */
 @media (min-width: 701px) {
     .identidad-geografica {
-        top: calc(1% + 38px);
+        top: 1%;
 
         font-size: clamp(16px, 1.7vw, 22px);
         letter-spacing: 0.11em;
@@ -286,6 +285,16 @@ que tiene respecto de la portada en celulares.
     transform: translateX(-50%);
 
     animation: mostrar-aviso-categorias 5.5s ease 0.5s both;
+}
+
+/*
+El aviso temporal aparece debajo de la ubicación y luego
+desaparece, dejando únicamente la identificación del lugar.
+*/
+@media (min-width: 701px) {
+    .aviso-categorias {
+        top: calc(1% + 38px);
+    }
 }
 
 @keyframes mostrar-aviso-categorias {
