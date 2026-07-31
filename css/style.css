@@ -242,6 +242,20 @@ a {
     transform: translateX(-50%);
 }
 
+/*
+En computadora hay suficiente espacio para separar la
+ubicación del aviso y darle una proporción similar a la
+que tiene respecto de la portada en celulares.
+*/
+@media (min-width: 701px) {
+    .identidad-geografica {
+        top: calc(1% + 38px);
+
+        font-size: clamp(16px, 1.7vw, 22px);
+        letter-spacing: 0.11em;
+    }
+}
+
 .aviso-categorias {
     position: absolute;
     top: 1%;
