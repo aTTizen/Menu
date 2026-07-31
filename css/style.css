@@ -219,6 +219,29 @@ a {
 /* AYUDA INICIAL Y ACCESOS DE CONTACTO               */
 /* ================================================= */
 
+.identidad-geografica {
+    position: absolute;
+    top: 1%;
+    left: 50%;
+    z-index: 3;
+
+    width: max-content;
+    max-width: calc(100% - 24px);
+
+    color: rgba(48, 35, 20, 0.78);
+
+    font-family: "Arial Narrow", Arial, Helvetica, sans-serif;
+    font-size: clamp(9px, 1vw, 12px);
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: 0.14em;
+
+    text-align: center;
+    text-transform: uppercase;
+
+    transform: translateX(-50%);
+}
+
 .aviso-categorias {
     position: absolute;
     top: 1%;
