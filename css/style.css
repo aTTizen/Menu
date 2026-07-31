@@ -221,12 +221,11 @@ a {
 
 .identidad-geografica {
     position: absolute;
-    top: 1%;
-    left: 50%;
+    top: 65%;
+    left: calc(100% - clamp(11px, 1.8vw, 19px));
     z-index: 3;
 
     width: max-content;
-    max-width: calc(100% - 24px);
 
     color: rgba(48, 35, 20, 0.78);
 
@@ -238,18 +237,19 @@ a {
 
     text-align: center;
     text-transform: uppercase;
+    white-space: nowrap;
 
-    transform: translateX(-50%);
+    pointer-events: none;
+    transform: translate(-50%, -50%) rotate(-90deg);
+    transform-origin: center;
 }
 
 /*
-En computadora la ubicación permanente ocupa la primera
-posición y mantiene una proporción similar a la del celular.
+En computadora la identificación vertical conserva una
+presencia mayor sin invadir los nombres de las categorías.
 */
 @media (min-width: 701px) {
     .identidad-geografica {
-        top: 1%;
-
         font-size: clamp(16px, 1.7vw, 22px);
         letter-spacing: 0.11em;
     }
@@ -287,13 +287,10 @@ posición y mantiene una proporción similar a la del celular.
     animation: mostrar-aviso-categorias 5.5s ease 0.5s both;
 }
 
-/*
-El aviso temporal aparece debajo de la ubicación y luego
-desaparece, dejando únicamente la identificación del lugar.
-*/
+/* En computadora el aviso temporal permanece arriba. */
 @media (min-width: 701px) {
     .aviso-categorias {
-        top: calc(1% + 38px);
+        top: 1%;
     }
 }
 
