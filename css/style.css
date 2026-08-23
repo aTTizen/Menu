@@ -219,6 +219,73 @@ a {
 /* AYUDA INICIAL Y ACCESOS DE CONTACTO               */
 /* ================================================= */
 
+.selector-idioma {
+    position: fixed;
+    top: max(14px, env(safe-area-inset-top));
+    left: max(
+        10px,
+        calc((100vw - var(--ancho-carta) - 300px) / 4)
+    );
+    z-index: 30;
+
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+
+    min-height: 44px;
+    padding: 8px 13px;
+
+    color: var(--color-tinta);
+    border: 1px solid rgba(48, 35, 20, 0.28);
+    border-radius: 999px;
+
+    font-family: "League Spartan", "Arial Narrow", Arial, Helvetica, sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: 0.08em;
+
+    background: rgba(255, 248, 235, 0.94);
+    box-shadow: 0 3px 10px rgba(48, 35, 20, 0.14);
+    backdrop-filter: blur(3px);
+}
+
+.selector-idioma a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 28px;
+
+    color: var(--color-tinta);
+    text-decoration: none;
+
+    transition: opacity 0.2s ease;
+    touch-action: manipulation;
+}
+
+.selector-idioma a:hover,
+.selector-idioma a:focus-visible {
+    opacity: 0.55;
+}
+
+.selector-idioma a:focus-visible {
+    outline: 2px solid var(--color-tinta);
+    outline-offset: 3px;
+}
+
+.idioma-activo {
+    color: var(--color-rojo);
+}
+
+.separador-idioma {
+    color: rgba(48, 35, 20, 0.4);
+}
+
+@media (min-width: 701px) and (max-width: 1399px) {
+    .selector-idioma {
+        left: clamp(8px, 2vw, 24px);
+    }
+}
+
 .identidad-geografica {
     position: absolute;
     top: 65%;
@@ -538,6 +605,18 @@ pequeñas, donde la letra de la carta necesita ampliación.
     scroll-margin-top: 16px;
 }
 
+.ancla-hot-dogs {
+    position: absolute;
+    top: 62%;
+    left: 0;
+
+    width: 1px;
+    height: 1px;
+
+    pointer-events: none;
+    scroll-margin-top: 16px;
+}
+
 
 /* ================================================= */
 /* VERSIÓN MÓVIL                                     */
@@ -583,6 +662,17 @@ pequeñas, donde la letra de la carta necesita ampliación.
         top: max(10px, env(safe-area-inset-top));
 
         font-size: 10px;
+    }
+
+    .selector-idioma {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+
+        min-height: 40px;
+        padding: 6px 11px;
+
+        font-size: 12px;
     }
 
     .acciones-principales {
@@ -658,11 +748,22 @@ pequeñas, donde la letra de la carta necesita ampliación.
         padding-bottom: 70svh;
     }
 
+    .pagina-pizzas:has(#hot-dogs:target) {
+        padding-bottom: 70svh;
+    }
+
     /*
     Cuando se entra directamente a Panchos hay desplazamiento.
     En ese caso puntual MENÚ permanece visible sobre la carta.
     */
     .pagina-pizzas:has(#panchos:target) .menu-sobre-carta {
+        position: fixed;
+        top: max(10px, env(safe-area-inset-top));
+        right: 10px;
+        z-index: 10;
+    }
+
+    .pagina-pizzas:has(#hot-dogs:target) .menu-sobre-carta {
         position: fixed;
         top: max(10px, env(safe-area-inset-top));
         right: 10px;
@@ -678,6 +779,10 @@ pequeñas, donde la letra de la carta necesita ampliación.
     .menu-sobre-carta,
     .ampliar-carta,
     .accion-principal {
+        transition: none;
+    }
+
+    .selector-idioma a {
         transition: none;
     }
 }
