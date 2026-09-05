@@ -199,6 +199,47 @@ a {
     height: 10%;
 }
 
+/*
+La portada inglesa conserva la composición general de la
+española, pero sus palabras tienen anchos diferentes. Estas
+coordenadas mantienen alrededor de cada texto el mismo margen
+táctil que tienen las zonas de la portada original.
+*/
+html[lang="en"] .zona-burgers {
+    left: 10%;
+    top: 38.7%;
+    width: 70%;
+    height: 10%;
+}
+
+html[lang="en"] .zona-cervezas {
+    left: 10%;
+    top: 49.2%;
+    width: 38%;
+    height: 10%;
+}
+
+html[lang="en"] .zona-papas {
+    left: 10%;
+    top: 59.4%;
+    width: 40%;
+    height: 10%;
+}
+
+html[lang="en"] .zona-pizzas {
+    left: 10%;
+    top: 69.9%;
+    width: 43%;
+    height: 10%;
+}
+
+html[lang="en"] .zona-panchos {
+    left: 10%;
+    top: 80.5%;
+    width: 81%;
+    height: 10%;
+}
+
 @media (hover: hover) and (pointer: fine) {
     .zona:hover {
         background: rgba(183, 2, 19, 0.08);
