@@ -1292,3 +1292,47 @@ pequeñas, donde la letra de la carta necesita ampliación.
         transition: none;
     }
 }
+
+/* ================================================= */
+/* CARTA DE CERVEZAS OKTOBER                         */
+/* ================================================= */
+
+.seccion-cervezas-oktober {
+    width: min(calc(100% - 32px), var(--ancho-carta));
+    margin: clamp(34px, 7vw, 76px) auto clamp(84px, 10vw, 130px);
+}
+
+.imagen-cervezas-oktober {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+@media (min-width: 701px) {
+    .pagina-carta:has(.seccion-cervezas-oktober) .menu-sobre-carta {
+        right: max(16px, calc((100vw - var(--ancho-carta)) / 2 + 16px));
+        left: auto;
+        transform: none;
+    }
+}
+
+@media (min-width: 701px) and (hover: hover) and (pointer: fine) {
+    .pagina-carta:has(.seccion-cervezas-oktober) .menu-sobre-carta:hover {
+        transform: translateY(-1px);
+    }
+}
+
+@media (max-width: 700px) {
+    .pagina-carta:has(.seccion-cervezas-oktober) {
+        display: block;
+    }
+
+    .pagina-carta:has(.seccion-cervezas-oktober) .contenedor-carta {
+        margin-block: 0;
+    }
+
+    .seccion-cervezas-oktober {
+        width: 100%;
+        margin: 20px auto 72px;
+    }
+}
