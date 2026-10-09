@@ -10,7 +10,23 @@
     <link rel="icon" type="image/png" href="img/favicon.png?v=2">
     <link rel="apple-touch-icon" href="img/favicon.png?v=2">
     <link rel="stylesheet" href="css/style.css?v=15">
-<link rel="stylesheet" href="css/oktober.css?v=1">
+    <link rel="stylesheet" href="css/oktober.css?v=1">
+
+    <style>
+        @media (min-width: 701px) {
+            .pagina-carta:has(.cervezas-oktober) .menu-sobre-carta {
+                right: max(16px, calc((100vw - 970px) / 2 + 16px));
+                left: auto;
+                transform: none;
+            }
+        }
+
+        @media (min-width: 701px) and (hover: hover) and (pointer: fine) {
+            .pagina-carta:has(.cervezas-oktober) .menu-sobre-carta:hover {
+                transform: translateY(-1px);
+            }
+        }
+    </style>
 </head>
 
 <body class="pagina-carta">
