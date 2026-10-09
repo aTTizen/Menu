@@ -24,7 +24,9 @@
     <link
         rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@700&amp;display=swap">
-    <link rel="stylesheet" href="css/style.css?v=14">
+    <link rel="stylesheet" href="css/style.css?v=15">
+    <script src="js/encuesta-config.js?v=1" defer></script>
+    <script src="js/encuesta.js?v=2" defer></script>
 </head>
 
 <body class="pagina-portada">
@@ -137,6 +139,130 @@
         </a>
 
     </nav>
+
+    <button
+        class="boton-encuesta"
+        type="button"
+        data-abrir-encuesta
+        aria-haspopup="dialog">
+        <svg class="icono-encuesta" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M6 3h12a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2Z"></path>
+            <path d="m8 8 1.4 1.4L12 6.8M8 14l1.4 1.4L12 12.8M14 9h3M14 15h3"></path>
+        </svg>
+        <span>Encuesta</span>
+    </button>
+
+    <dialog class="modal-evento modal-bienvenida" id="bienvenida-oktoberfest" aria-labelledby="titulo-bienvenida">
+        <div class="modal-evento__interior bienvenida-evento">
+            <p class="etiqueta-evento">Oktober Fest · La Cabra Mareada</p>
+            <h1 id="titulo-bienvenida">¡Bienvenidos!</h1>
+            <p class="bienvenida-evento__texto">
+                Gracias por venir. Queremos conocerte y saber cómo la estás pasando.
+                ¿Nos respondés 4 preguntas cortitas?
+            </p>
+            <div class="bienvenida-evento__acciones">
+                <button class="boton-evento boton-evento--principal" type="button" data-responder-encuesta>
+                    Responder encuesta
+                </button>
+                <button class="boton-evento boton-evento--secundario" type="button" data-ver-carta>
+                    Ver la carta
+                </button>
+            </div>
+            <p class="nota-privacidad">Es anónima: no pedimos nombre, correo ni teléfono.</p>
+        </div>
+    </dialog>
+
+    <dialog class="modal-evento modal-encuesta" id="encuesta-oktoberfest" aria-labelledby="titulo-encuesta">
+        <form class="modal-evento__interior encuesta-evento" id="formulario-encuesta" novalidate>
+            <header class="encuesta-evento__encabezado">
+                <div>
+                    <p class="etiqueta-evento">Oktober Fest · Encuesta anónima</p>
+                    <h2 id="titulo-encuesta">Queremos escucharte</h2>
+                </div>
+                <button class="cerrar-modal" type="button" data-cerrar-encuesta aria-label="Cerrar encuesta">×</button>
+            </header>
+
+            <div class="progreso-encuesta" aria-hidden="true">
+                <span class="progreso-encuesta__barra" data-barra-progreso></span>
+            </div>
+            <p class="contador-encuesta" data-contador-pregunta aria-live="polite">Pregunta 1 de 4</p>
+
+            <div class="pasos-encuesta">
+                <fieldset class="paso-encuesta" data-paso="1">
+                    <legend tabindex="-1">¿De dónde sos?</legend>
+                    <p class="ayuda-pregunta">Elegí una opción.</p>
+                    <div class="opciones-encuesta">
+                        <label class="opcion-encuesta"><input type="radio" name="localidad" value="Los Antiguos"> <span>Los Antiguos</span></label>
+                        <label class="opcion-encuesta"><input type="radio" name="localidad" value="Perito Moreno"> <span>Perito Moreno</span></label>
+                        <label class="opcion-encuesta"><input type="radio" name="localidad" value="Chile Chico"> <span>Chile Chico</span></label>
+                        <label class="opcion-encuesta"><input type="radio" name="localidad" value="Otra localidad" data-activa-texto="otra-localidad"> <span>Otra localidad</span></label>
+                    </div>
+                    <label class="campo-otro" data-campo-otro="otra-localidad" hidden>
+                        <span>¿Cuál?</span>
+                        <input type="text" name="otra_localidad" maxlength="80" autocomplete="address-level2" placeholder="Escribí tu localidad">
+                    </label>
+                </fieldset>
+
+                <fieldset class="paso-encuesta" data-paso="2" hidden>
+                    <legend tabindex="-1">¿Cómo te enteraste del evento?</legend>
+                    <p class="ayuda-pregunta">Podés elegir varias opciones.</p>
+                    <div class="opciones-encuesta opciones-encuesta--compactas">
+                        <label class="opcion-encuesta"><input type="checkbox" name="difusion" value="Instagram"> <span>Instagram</span></label>
+                        <label class="opcion-encuesta"><input type="checkbox" name="difusion" value="Facebook"> <span>Facebook</span></label>
+                        <label class="opcion-encuesta"><input type="checkbox" name="difusion" value="WhatsApp"> <span>WhatsApp</span></label>
+                        <label class="opcion-encuesta"><input type="checkbox" name="difusion" value="Amigos o familiares"> <span>Amigos o familiares</span></label>
+                        <label class="opcion-encuesta"><input type="checkbox" name="difusion" value="En el local"> <span>En el local</span></label>
+                        <label class="opcion-encuesta"><input type="checkbox" name="difusion" value="Radio"> <span>Radio</span></label>
+                        <label class="opcion-encuesta"><input type="checkbox" name="difusion" value="Otro" data-activa-texto="otro-difusion"> <span>Otro</span></label>
+                    </div>
+                    <label class="campo-otro" data-campo-otro="otro-difusion" hidden>
+                        <span>¿Cuál?</span>
+                        <input type="text" name="otro_difusion" maxlength="100" placeholder="Contanos cómo te enteraste">
+                    </label>
+                </fieldset>
+
+                <fieldset class="paso-encuesta" data-paso="3" hidden>
+                    <legend tabindex="-1">¿Qué es lo que más te está gustando?</legend>
+                    <p class="ayuda-pregunta">Podés elegir varias opciones.</p>
+                    <div class="opciones-encuesta opciones-encuesta--compactas">
+                        <label class="opcion-encuesta"><input type="checkbox" name="favorito" value="La cerveza"> <span>La cerveza</span></label>
+                        <label class="opcion-encuesta"><input type="checkbox" name="favorito" value="La comida"> <span>La comida</span></label>
+                        <label class="opcion-encuesta"><input type="checkbox" name="favorito" value="La música y las bandas"> <span>La música y las bandas</span></label>
+                        <label class="opcion-encuesta"><input type="checkbox" name="favorito" value="El ambiente"> <span>El ambiente</span></label>
+                        <label class="opcion-encuesta"><input type="checkbox" name="favorito" value="La atención"> <span>La atención</span></label>
+                        <label class="opcion-encuesta"><input type="checkbox" name="favorito" value="Otro" data-activa-texto="otro-favorito"> <span>Otro</span></label>
+                    </div>
+                    <label class="campo-otro" data-campo-otro="otro-favorito" hidden>
+                        <span>¿Qué otra cosa?</span>
+                        <input type="text" name="otro_favorito" maxlength="100" placeholder="Contanos qué te está gustando">
+                    </label>
+                </fieldset>
+
+                <fieldset class="paso-encuesta" data-paso="4" hidden>
+                    <legend tabindex="-1">¿Qué podríamos mejorar?</legend>
+                    <p class="ayuda-pregunta">Esta pregunta es opcional.</p>
+                    <label class="campo-comentario">
+                        <span class="texto-accesible">Sugerencia</span>
+                        <textarea name="mejora" rows="5" maxlength="500" placeholder="Escribí tu sugerencia acá..."></textarea>
+                    </label>
+                    <aside class="aviso-prueba" role="note" data-estado-conexion>
+                        <strong>Vista previa</strong>
+                        <span data-texto-conexion>Google Sheets todavía no está conectado. Al completar esta prueba no se enviará ni guardará ninguna respuesta.</span>
+                    </aside>
+                </fieldset>
+            </div>
+
+            <p class="error-encuesta" data-error-encuesta role="alert" hidden></p>
+
+            <footer class="acciones-encuesta">
+                <button class="boton-evento boton-evento--secundario" type="button" data-paso-anterior hidden>Anterior</button>
+                <button class="boton-evento boton-evento--principal" type="button" data-paso-siguiente>Siguiente</button>
+                <button class="boton-evento boton-evento--principal" type="submit" data-finalizar-prueba hidden>Finalizar prueba</button>
+            </footer>
+
+            <p class="nota-privacidad">No pedimos datos personales.</p>
+        </form>
+    </dialog>
 
 </body>
 
