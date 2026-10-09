@@ -6,7 +6,7 @@
     const ENDPOINT = typeof CONFIGURACION.endpoint === "string"
         ? CONFIGURACION.endpoint.trim()
         : "";
-    const MODO_PRUEBA = !/^https://script.google.com/macros/s/.+/exec$/.test(ENDPOINT);
+    const MODO_PRUEBA = !(ENDPOINT.startsWith("https://script.google.com/macros/s/") && ENDPOINT.endsWith("/exec"));
 
     const bienvenida = document.querySelector("#bienvenida-oktoberfest");
     const encuesta = document.querySelector("#encuesta-oktoberfest");
